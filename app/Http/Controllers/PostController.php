@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Models\Post;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StorePost;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -49,7 +50,7 @@ class PostController extends Controller
     {
         //
         $post=new Post;
-        $post->user_id=$request->user()->id;
+        $post->user_id=Auth::user()->id;
         $post->title=$request->input('title');
         $post->content=$request->input('content');
         $post->save();
@@ -93,7 +94,7 @@ class PostController extends Controller
     {
         //
         $post=Post::find($id);
-        $post->user_id=$request->user()->id;
+        $post->user_id=Auth::user()->id;
         $post->title=$request->input('title');
         $post->content=$request->input('content');
         $post->save();
