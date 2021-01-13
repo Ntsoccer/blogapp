@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Http\Requests\StorePost;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
-class PostController extends Controller
+
+class FavoriteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,15 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //selectでもってくる方法模索中
-        // $blogs=DB::table('posts')
-        // ->select('user','title','content')
-        // ->get();
-
-        $blogs=Post::All();
-
-
-        return view('blog.index',compact('blogs'));
+        //
     }
 
     /**
@@ -36,7 +27,6 @@ class PostController extends Controller
     public function create()
     {
         //
-        return view('blog.create');
     }
 
     /**
@@ -45,14 +35,11 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePost $request)
+    public function store(Post $blog,Request $request)
     {
         //
-        $post=new Post;
-        $post->user_id=Auth::user()->id;
-        $post->title=$request->input('title');
-        $post->content=$request->input('content');
-        $post->save();
+        $blog=Post::find($request->post_id);
+        $blog->users()->attach(Auth::id());
 
         return redirect('blog/index');
     }
@@ -77,9 +64,6 @@ class PostController extends Controller
     public function edit($id)
     {
         //
-        $blog=Post::find($id);
-
-        return view('blog.edit',compact('blog'));
     }
 
     /**
@@ -89,16 +73,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePost $request, $id)
+    public function update(Request $request, $id)
     {
         //
-        $post=Post::find($id);
-        $post->user_id=Auth::user()->id;
-        $post->title=$request->input('title');
-        $post->content=$request->input('content');
-        $post->save();
-
-        return redirect('blog/index');
     }
 
     /**
@@ -107,11 +84,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $blog,Request $request)
     {
         //
-        $post=Post::find($id);
-        $post->delete();
+        $blog=Post::find($request->post_id);
+        $blog->users()->detach(Auth::id());
 
         return redirect('blog/index');
     }

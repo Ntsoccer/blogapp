@@ -10,4 +10,8 @@ class Post extends Model
     public function user(){
       return $this->belongsTo('App\USer');
     }
+
+    public function users(){
+      return $this->belongsToMany('App\User')->withTimestamps();
+    }
 }

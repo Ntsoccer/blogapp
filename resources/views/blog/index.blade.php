@@ -21,6 +21,19 @@
             <input class="btn btn-danger" type="submit" value="削除する">
           </form>
           @endif
+          @if($blog->users()->where('user_id',Auth::id())->exists())
+          <form method="POST" action="{{ route('unfavorites', $blog) }}">
+            @csrf
+            <input type="hidden" name="post_id" value="{{$blog->id}}">
+            <input type="submit" value="&#xf004;" class="fas">{{$blog->users()->count()}}
+          </form>
+          @else
+          <form method="POST" action="{{ route('favorites', $blog) }}">
+            @csrf
+            <input type="hidden" name="post_id" value="{{$blog->id}}">
+            <input type="submit" value="&#xf004;" class="fas">{{$blog->users()->count()}}
+          </form>
+          @endif
         </div>
       </div>
       <br>

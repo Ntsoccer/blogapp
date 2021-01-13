@@ -22,6 +22,8 @@ Route::group(['prefix'=>'blog','middleware'=>'auth'],function(){
   Route::get('edit/{id}','PostController@edit')->name('blog.edit');
   Route::post('update/{id}','PostController@update')->name('blog.update');
   Route::post('destroy/{id}','PostController@destroy')->name('blog.destroy');
+  Route::post('favorite/{id}','FavoriteController@store')->name('favorites');
+  Route::post('unfavorite/{id}','FavoriteController@destroy')->name('unfavorites');
 });
 
 Auth::routes();
