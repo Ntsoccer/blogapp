@@ -1,9 +1,5 @@
-/* g{
-  display: none;
+button{
+  background-color: transparent!important;
+  outline: none!important;
+  border: none!important;
 }
-path{
-  display: none;
-}
-svg{
-  display: none;
-} */

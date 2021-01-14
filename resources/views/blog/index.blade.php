@@ -25,13 +25,13 @@
           <form method="POST" action="{{ route('unfavorites', $blog) }}">
             @csrf
             <input type="hidden" name="post_id" value="{{$blog->id}}">
-            <input type="submit" value="&#xf004;" class="fas">{{$blog->users()->count()}}
+            <button type="submit"><i class="fas fa-heart"></i></button>{{$blog->users()->count()}}
           </form>
           @else
           <form method="POST" action="{{ route('favorites', $blog) }}">
             @csrf
             <input type="hidden" name="post_id" value="{{$blog->id}}">
-            <input type="submit" value="&#xf004;" class="fas">{{$blog->users()->count()}}
+            <button type="submit"><i class="far fa-heart"></i></button>{{$blog->users()->count()}}
           </form>
           @endif
         </div>
