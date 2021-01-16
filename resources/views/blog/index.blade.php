@@ -17,6 +17,7 @@
             <input class="btn btn-info" type="submit" value="編集する">
           </form>
           <form method="POST" action="{{route('blog.destroy',['id'=>$blog->id])}}">
+            @method('DELETE')
             @csrf
             <input class="btn btn-danger" type="submit" value="削除する">
           </form>
@@ -25,13 +26,13 @@
           <form method="POST" action="{{ route('unfavorites', $blog) }}">
             @csrf
             <input type="hidden" name="post_id" value="{{$blog->id}}">
-            <button type="submit"><i class="fas fa-heart"></i></button>{{$blog->users()->count()}}
+            <button type="submit" class="font"><i class="fas fa-heart"></i></button>{{$blog->users()->count()}}
           </form>
           @else
           <form method="POST" action="{{ route('favorites', $blog) }}">
             @csrf
             <input type="hidden" name="post_id" value="{{$blog->id}}">
-            <button type="submit"><i class="far fa-heart"></i></button>{{$blog->users()->count()}}
+            <button type="submit" class="font"><i class="far fa-heart"></i></button>{{$blog->users()->count()}}
           </form>
           @endif
         </div>

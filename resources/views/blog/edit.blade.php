@@ -8,6 +8,7 @@
         <div class="card-header">{{ __('Dashboard') }}</div>
 
         <form method="POST" action="{{route('blog.update',['id'=>$blog->id])}}">
+          @method('PUT')
           @csrf
           @error('title')
           <div>
